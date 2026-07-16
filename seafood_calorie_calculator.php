@@ -3,7 +3,7 @@
  * Plugin Name:  Seafood Calorie Calculator
  * Plugin URI:   https://thekhandigital.com
  * Description:  A seafood-only calorie calculator with omega-3 tracking, mercury levels, health benefit tips, macro breakdown, and a daily meal tracker. Use shortcode [seafood_calorie_calculator] anywhere.
- * Version:      5.5.5
+ * Version:      5.5.6
  * Author:       The Khan Digital
  * Author URI:   https://thekhandigital.com
  * License:      GPL-2.0+
@@ -13,7 +13,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Prevent direct access
 
 // ─── Constants ───────────────────────────────────────────────────────────────
-define( 'FCC_VERSION',     '5.5.4' );
+define( 'FCC_VERSION',     '5.5.6' );
 define( 'FCC_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
 define( 'FCC_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -41,6 +41,7 @@ class SeafoodCalorieCalculator {
 
         add_action( 'wp_enqueue_scripts',    [ $this, 'enqueueAssets'   ], 999 );
         add_action( 'admin_menu',            [ $this, 'adminMenu'       ] );
+        add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [ $this, 'addSettingsLink' ] );
         add_action( 'admin_post_fcc_save_settings',     [ $this, 'adminSaveSettings'    ] );
         add_action( 'admin_post_fcc_save_pdf_settings', [ $this, 'adminSavePdfSettings' ] );
         if ( ! get_option('fcc_sort_priority_col') ) {
@@ -2424,6 +2425,13 @@ class SeafoodCalorieCalculator {
         add_submenu_page( 'fcc-settings', 'Manage Foods',  'Manage Foods',  'manage_options', 'fcc-foods',         [ $this, 'adminFoodsPage'       ] );
         add_submenu_page( 'fcc-settings', 'Analytics',     'Analytics',     'manage_options', 'fcc-analytics',     [ $this, 'adminAnalyticsPage'   ] );
         add_submenu_page( 'fcc-settings', 'Food Requests', 'Food Requests', 'manage_options', 'fcc-requests',      [ $this, 'adminRequestsPage'    ] );
+    }
+
+    // ── Admin: "Settings" link on Plugins list row ─────────────────────────────
+    public function addSettingsLink( $links ) {
+        $settings_link = '<a href="' . admin_url( 'admin.php?page=fcc-settings' ) . '">Settings</a>';
+        array_unshift( $links, $settings_link );
+        return $links;
     }
 
     // ── Admin: Save Settings ──────────────────────────────────────────────────
