@@ -3,7 +3,7 @@
  * Plugin Name:  Seafood Calorie Calculator
  * Plugin URI:   https://thekhandigital.com
  * Description:  A seafood-only calorie calculator with omega-3 tracking, mercury levels, health benefit tips, macro breakdown, and a daily meal tracker. Use shortcode [seafood_calorie_calculator] anywhere.
- * Version:      5.5.4
+ * Version:      5.5.5
  * Author:       The Khan Digital
  * Author URI:   https://thekhandigital.com
  * License:      GPL-2.0+
